@@ -45,7 +45,6 @@ def main(args):
                       if item])
     dockerfile = join(images_folder, args.image, 'Dockerfile')
     print('dockerfile', dockerfile)
-    assert False
     build_image(dockerfile=dockerfile, tag=image)
 
     if args.push:

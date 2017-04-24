@@ -19,7 +19,7 @@ orchestration, as well as topologies, the abstraction the defines the behavior o
 It also contains a number of utility modules to wrap common Docker API functionality."""
 
 import logging
-from configparser import ConfigParser
+from ConfigParser import SafeConfigParser
 from os.path import dirname, join
 
 logging.basicConfig(level=logging.ERROR)
@@ -36,7 +36,7 @@ class Constants(object):
 
     # pylint: disable=too-few-public-methods
 
-    _config = ConfigParser()
+    _config = SafeConfigParser()
     _config.read(join(dirname(__file__), 'constants.cfg'))
     for section in _config.sections() + ['DEFAULT']:
         locals()[section] = type(section, (), {item[0]: item[1] for item in _config.items(section)})
