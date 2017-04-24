@@ -44,6 +44,8 @@ def main(args):
                                    "clusterdock:{0}".format(args.image))
                       if item])
     dockerfile = join(images_folder, args.image, 'Dockerfile')
+    print('dockerfile', dockerfile)
+    assert False
     build_image(dockerfile=dockerfile, tag=image)
 
     if args.push:
