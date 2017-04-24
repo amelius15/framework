@@ -37,8 +37,13 @@ RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys && \
 # not trigger it. The other is the inclusion of the 90-nproc.conf file, which overrides reasonable
 # defaults for things like the maximum number of user processes when running commands as a non-root
 # user. Get rid of it (and see tinyurl.com/zqdfzpg).
-RUN sed -i 's|/sbin/start_udev||' /etc/rc.d/rc.sysinit && \
-    rm /etc/security/limits.d/90-nproc.conf
+RUN systemctl disable systemd-udev-settle.service
+RUN systemctl disable systemd-udev-trigger.service
+RUN systemctl disable systemd-udevd.service
+RUN systemctl disable systemd-udevd-control.socket
+RUN systemctl disable systemd-udevd-kernel.socket
+
+RUN rm /etc/security/limits.d/20-nproc.conf
 
 # Disable strict host key checking and set the known hosts file to /dev/null to make
 # SSH between containers less of a pain.

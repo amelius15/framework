@@ -29,9 +29,10 @@ logger.setLevel(logging.INFO)
 DEFAULT_CLOUDERA_NAMESPACE = Constants.DEFAULT.cloudera_namespace # pylint: disable=no-member
 
 def start(args):
-    image = "{0}/{1}/clusterdock:{2}_nodebase".format(args.registry_url,
+    image = "{0}/clusterdock:{2}_nodebase".format(args.registry_url,
                                                       args.namespace or DEFAULT_CLOUDERA_NAMESPACE,
                                                       args.operating_system)
+    print('LOCALLY AVAILABLE?', is_image_available_locally(image))
     if args.always_pull or not is_image_available_locally(image):
         pull_image(image)
 
